@@ -6,4 +6,10 @@ export default defineNuxtConfig({
   css: ["~/assets/css/main.css"],
 
   modules: ["@nuxt/eslint", "@nuxt/fonts", "@nuxt/icon", "@nuxt/image"],
+
+  ssr: false,
+  nitro: {
+    preset: "static",
+    static: true,
+  },
 });
