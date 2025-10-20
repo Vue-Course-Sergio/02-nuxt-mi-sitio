@@ -1,17 +1,19 @@
 <template>
-  <u-app>
+  <div>
     <div class="error-container">
       <div class="error-content">
         <div class="error-code-wrapper">
-          <h1 class="error-code">{{ error.statusCode || 404 }}</h1>
+          <h1 class="error-code">{{ $props.error.statusCode || 404 }}</h1>
           <div class="error-glow"></div>
         </div>
 
         <div class="error-message">
-          <h2>Page not found</h2>
+          <h2>{{ $props.error.statusMessage }}</h2>
           <p>
-            Sorry, the page you are looking for does not exist. It might have
-            been moved or deleted.
+            {{
+              $props.error.data?.otherField ||
+              "Sorry, the page you are looking for does not exist. It might havebeen moved or deleted."
+            }}
           </p>
         </div>
 
@@ -35,7 +37,7 @@
         </div>
       </div>
     </div>
-  </u-app>
+  </div>
 </template>
 
 <script setup lang="ts">
