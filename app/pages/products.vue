@@ -1,7 +1,7 @@
 <script setup lang="ts">
 throw createError({
-  statusCode: 404,
-  statusMessage: "Page not found!!",
+  statusCode: 500,
+  statusMessage: "No se puede dividir entre 0",
   data: {
     myCustomField: true,
     otherField: "Some value",
