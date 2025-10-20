@@ -109,19 +109,19 @@ const goBack = () => {
 
 .error-message {
   margin-bottom: 3rem;
+}
 
-  h2 {
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
-    color: #00dc82;
-    margin: 0 0 1rem 0;
-  }
+.error-message h2 {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  color: #00dc82;
+  margin: 0 0 1rem 0;
+}
 
-  p {
-    font-size: 1.125rem;
-    color: rgba(255, 255, 255, 0.7);
-    line-height: 1.6;
-    margin: 0;
-  }
+.error-message p {
+  font-size: 1.125rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  margin: 0;
 }
 
 .error-actions {
@@ -134,10 +134,10 @@ const goBack = () => {
 
 .primary-button {
   transition: transform 0.2s ease;
+}
 
-  :hover {
-    transform: translateY(-2px);
-  }
+.primary-button:hover {
+  transform: translateY(-2px);
 }
 
 .error-details {
@@ -153,17 +153,17 @@ const goBack = () => {
   text-align: left;
   font-size: 0.875rem;
   color: rgba(255, 255, 255, 0.8);
+}
 
-  p {
-    margin: 0.5rem 0;
-  }
+.error-stack p {
+  margin: 0.5rem 0;
+}
 
-  pre {
-    margin-top: 1rem;
-    overflow-x: auto;
-    font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.6);
-  }
+.error-stack pre {
+  margin-top: 1rem;
+  overflow-x: auto;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
 }
 
 @keyframes glitch {
