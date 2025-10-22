@@ -19,9 +19,19 @@ export default defineNuxtConfig({
 
   modules: ["@nuxt/eslint", "@nuxt/fonts", "@nuxt/icon", "@nuxt/image"],
 
+  // SPA Configuration
   // ssr: false,
   // nitro: {
   //   preset: "static",
   //   static: true,
   // },
+
+  // Prerender Configuration
+  nitro: {
+    prerender: {
+      routes: ["/", "/about", "/contact", "/products"],
+      ignore: ["/dashboard", "/dashboard/**"],
+      crawlLinks: true,
+    },
+  },
 });
