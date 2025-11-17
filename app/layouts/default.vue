@@ -8,5 +8,6 @@
     </main>
 
     <!-- Footer -->
+    <shared-footer />
   </div>
 </template>
