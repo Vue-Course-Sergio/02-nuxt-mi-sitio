@@ -9,7 +9,8 @@ const testimonials = ref([
         alt: "Evan You",
       },
     },
-    quote: "¡Nuxt en la infraestructura de Cloudflare con un esfuerzo mínimo - esto es enorme!",
+    quote:
+      "¡Nuxt en la infraestructura de Cloudflare con un esfuerzo mínimo - esto es enorme!",
   },
   {
     user: {
@@ -135,6 +136,12 @@ const testimonials = ref([
 </script>
 
 <template>
+  <u-page-section
+    title="Testimonios"
+    description="Nuestros testimonios de clientes satisfechos"
+    headline="Testimonios"
+  />
+
   <u-page-columns>
     <u-page-card
       variant="solid"

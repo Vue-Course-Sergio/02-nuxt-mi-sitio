@@ -45,6 +45,12 @@ const cards = ref([
 </script>
 
 <template>
+  <u-page-section
+    title="Servicios"
+    description="Una gran cantidad de funciones listas para usar"
+    headline="Servicios"
+  />
+
   <u-page-grid>
     <u-page-card v-for="(card, index) in cards" :key="index" v-bind="card">
       <u-color-mode-image
