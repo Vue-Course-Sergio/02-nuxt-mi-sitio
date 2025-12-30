@@ -8,5 +8,5 @@
   <!-- home testimonials -->
   <home-testimonials class="mt-10" />
 
-  <home-stack class="mt-10" />
+  <home-stack class="my-5" />
 </template>

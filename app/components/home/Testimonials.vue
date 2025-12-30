@@ -136,34 +136,37 @@ const testimonials = ref([
 </script>
 
 <template>
-  <u-page-section
-    title="Testimonios"
-    description="Nuestros testimonios de clientes satisfechos"
-    headline="Testimonios"
-  />
-
-  <u-page-columns>
-    <u-page-card
-      variant="solid"
-      to="https://cloudflare.com"
-      icon="i-logos-cloudflare-icon"
-      title="Workers LaunchPad de Cloudflare"
-      description="NuxtHub es parte del programa Workers Launchpad de Cloudflare para asegurar que obtengas una experiencia de primera clase sobre la red de Cloudflare."
-      :ui="{ leadingIcon: 'size-10' }"
+  <div>
+    <u-page-section
+      title="Testimonios"
+      description="Nuestros testimonios de clientes satisfechos"
+      headline="Testimonios"
     />
 
-    <u-page-card
-      v-for="(testimonial, index) in testimonials"
-      :key="index"
-      variant="subtle"
-      :description="testimonial.quote"
-      :ui="{
-        description: 'before:content-[open-quote] after:content-[close-quote]',
-      }"
-    >
-      <template #footer>
-        <u-user v-bind="testimonial.user" size="xl" />
-      </template>
-    </u-page-card>
-  </u-page-columns>
+    <u-page-columns>
+      <u-page-card
+        variant="solid"
+        to="https://cloudflare.com"
+        icon="i-logos-cloudflare-icon"
+        title="Workers LaunchPad de Cloudflare"
+        description="NuxtHub es parte del programa Workers Launchpad de Cloudflare para asegurar que obtengas una experiencia de primera clase sobre la red de Cloudflare."
+        :ui="{ leadingIcon: 'size-10' }"
+      />
+
+      <u-page-card
+        v-for="(testimonial, index) in testimonials"
+        :key="index"
+        variant="subtle"
+        :description="testimonial.quote"
+        :ui="{
+          description:
+            'before:content-[open-quote] after:content-[close-quote]',
+        }"
+      >
+        <template #footer>
+          <u-user v-bind="testimonial.user" size="xl" />
+        </template>
+      </u-page-card>
+    </u-page-columns>
+  </div>
 </template>

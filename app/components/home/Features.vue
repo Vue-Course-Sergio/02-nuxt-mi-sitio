@@ -45,24 +45,26 @@ const cards = ref([
 </script>
 
 <template>
-  <u-page-section
-    title="Servicios"
-    description="Una gran cantidad de funciones listas para usar"
-    headline="Servicios"
-  />
+  <div>
+    <u-page-section
+      title="Servicios"
+      description="Una gran cantidad de funciones listas para usar"
+      headline="Servicios"
+    />
 
-  <u-page-grid>
-    <u-page-card v-for="(card, index) in cards" :key="index" v-bind="card">
-      <u-color-mode-image
-        v-if="card.image"
-        :light="`${card.image.path}-light.svg`"
-        :dark="`${card.image.path}-dark.svg`"
-        :width="card.image.width"
-        :height="card.image.height"
-        :alt="card.title"
-        loading="lazy"
-        class="w-full"
-      />
-    </u-page-card>
-  </u-page-grid>
+    <u-page-grid>
+      <u-page-card v-for="(card, index) in cards" :key="index" v-bind="card">
+        <u-color-mode-image
+          v-if="card.image"
+          :light="`${card.image.path}-light.svg`"
+          :dark="`${card.image.path}-dark.svg`"
+          :width="card.image.width"
+          :height="card.image.height"
+          :alt="card.title"
+          loading="lazy"
+          class="w-full"
+        />
+      </u-page-card>
+    </u-page-grid>
+  </div>
 </template>
