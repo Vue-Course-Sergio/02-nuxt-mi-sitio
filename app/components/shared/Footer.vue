@@ -21,7 +21,7 @@ const items: NavigationMenuItem[] = [
 </script>
 
 <template>
-  <u-separator icon="i-simple-icons-nuxtdotjs" type="solid" class="h-px" />
+  <u-separator icon="i-simple-icons-nuxtdotjs" type="solid" class="h-px mt-5" />
 
   <u-footer>
     <template #left>
