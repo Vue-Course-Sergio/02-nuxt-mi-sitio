@@ -10,7 +10,7 @@
           Gestiona y organiza tu catálogo de productos
         </p>
       </div>
-      <UButton
+      <u-button
         icon="i-lucide-plus"
         label="Agregar Producto"
         color="primary"
@@ -18,7 +18,13 @@
       />
     </div>
 
-    <UTable :data="data" :columns="columns" class="flex-1" />
+    <u-table :data="products" :columns="columns" class="flex-1" />
+
+    <shared-pagination
+      :total="total"
+      :model-value="currentPage"
+      :per-page="perPage"
+    />
   </div>
 </template>
 
@@ -26,105 +32,80 @@
 import { h, resolveComponent } from "vue";
 import type { TableColumn } from "@nuxt/ui";
 
+const { products, currentPage, perPage, total } = await usePaginatedProducts();
+
 const UBadge = resolveComponent("UBadge");
 
-type Payment = {
-  id: string;
-  date: string;
-  status: "paid" | "failed" | "refunded";
-  email: string;
-  amount: number;
-};
-
-const data = ref<Payment[]>([
-  {
-    id: "4600",
-    date: "2024-03-11T15:30:00",
-    status: "paid",
-    email: "james.anderson@example.com",
-    amount: 594,
-  },
-  {
-    id: "4599",
-    date: "2024-03-11T10:10:00",
-    status: "failed",
-    email: "mia.white@example.com",
-    amount: 276,
-  },
-  {
-    id: "4598",
-    date: "2024-03-11T08:50:00",
-    status: "refunded",
-    email: "william.brown@example.com",
-    amount: 315,
-  },
-  {
-    id: "4597",
-    date: "2024-03-10T19:45:00",
-    status: "paid",
-    email: "emma.davis@example.com",
-    amount: 529,
-  },
-  {
-    id: "4596",
-    date: "2024-03-10T15:55:00",
-    status: "paid",
-    email: "ethan.harris@example.com",
-    amount: 639,
-  },
-]);
-
-const columns: TableColumn<Payment>[] = [
+const columns: TableColumn<Product>[] = [
   {
     accessorKey: "id",
     header: "#",
     cell: ({ row }) => `#${row.getValue("id")}`,
   },
   {
-    accessorKey: "date",
-    header: "Date",
+    accessorKey: "images",
+    header: "Imagen",
     cell: ({ row }) => {
-      return new Date(row.getValue("date")).toLocaleString("en-US", {
-        day: "numeric",
-        month: "short",
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false,
-      });
+      const images = row.getValue("images") as string[];
+      const url = Array.isArray(images) && images.length > 0 ? images[0] : "";
+
+      if (!url) return h("span", { class: "text-gray-500" }, "N/A");
+
+      return h("img", { class: "w-12 h-12 rounded-lg object-cover", src: url });
     },
   },
   {
-    accessorKey: "status",
-    header: "Status",
+    accessorKey: "name",
+    header: "Nombre",
+  },
+  {
+    accessorKey: "description",
+    header: "Descripción",
     cell: ({ row }) => {
-      const color = {
-        paid: "success" as const,
-        failed: "error" as const,
-        refunded: "neutral" as const,
-      }[row.getValue("status") as string];
-
-      return h(UBadge, { class: "capitalize", variant: "subtle", color }, () =>
-        row.getValue("status")
+      return h(
+        "div",
+        {
+          class: "whitespace-normal break-words max-w-[300px] truncate-text",
+        },
+        String(row.getValue("description")).slice(0, 50) + "..."
       );
     },
   },
   {
-    accessorKey: "email",
-    header: "Email",
+    accessorKey: "price",
+    header: "Precio",
+    cell: ({ row }) => formatCurrency(row.getValue("price")),
   },
   {
-    accessorKey: "amount",
-    header: () => h("div", { class: "text-right" }, "Amount"),
+    accessorKey: "tags",
+    header: "Etiquetas",
     cell: ({ row }) => {
-      const amount = Number.parseFloat(row.getValue("amount"));
+      const tags = row.getValue("tags") as string[];
 
-      const formatted = new Intl.NumberFormat("es-MX", {
-        style: "currency",
-        currency: "MXN",
-      }).format(amount);
+      if (!Array.isArray(tags) || tags.length === 0) return "";
 
-      return h("div", { class: "text-right font-medium" }, formatted);
+      return h(
+        "div",
+        { class: "flex flex-wrap gap-1" },
+        tags.map((tag) =>
+          h(
+            UBadge,
+            {
+              color: "primary",
+              variant: "subtle",
+              size: "xs",
+              class: "mr-0.5",
+            },
+            () => tag
+          )
+        )
+      );
     },
+  },
+  {
+    accessorKey: "createdAt",
+    header: "Creado",
+    cell: ({ row }) => dayMonthYearFormat(row.getValue("createdAt")),
   },
 ];
 </script>

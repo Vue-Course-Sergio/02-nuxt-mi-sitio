@@ -10,6 +10,7 @@ const prisma = new PrismaClient({ adapter });
 
 async function seed() {
   await prisma.siteReview.deleteMany();
+  await prisma.product.deleteMany();
 
   await prisma.siteReview.createMany({
     data: siteReviews,
