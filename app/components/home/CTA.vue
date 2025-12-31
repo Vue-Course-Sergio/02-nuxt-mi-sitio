@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { ButtonProps } from "@nuxt/ui";
 
+const { data } = await useFetch("/api/hello-world");
+
 const links = ref<ButtonProps[]>([
   {
     label: "Empezando",
@@ -17,8 +19,8 @@ const links = ref<ButtonProps[]>([
 
 <template>
   <u-page-c-t-a
-    title="Confiado y apoyado por nuestra increíble comunidad"
-    description="Hemos construido una asociación sólida y duradera. Su confianza es nuestra fuerza motriz, impulsándonos hacia el éxito compartido."
+    :title="data?.message"
+    :description="data?.description"
     orientation="horizontal"
     :links="links"
   >
