@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { products } = await usePaginatedProducts();
+const { products, total, currentPage, perPage } = await usePaginatedProducts();
 </script>
 
 <template>
@@ -19,7 +19,11 @@ const { products } = await usePaginatedProducts();
 
   <ProductsGrid :products="products" />
 
-  <SharedPagination :total="100" :model-value="1" :per-page="10" />
+  <SharedPagination
+    :total="total"
+    :model-value="currentPage"
+    :per-page="perPage"
+  />
 </template>
 
 <style scoped></style>
