@@ -39,6 +39,7 @@ export type SiteReviewMinAggregateOutputType = {
   name: string | null
   subtitle: string | null
   description: string | null
+  profileImage: string | null
   createdAt: Date | null
 }
 
@@ -47,6 +48,7 @@ export type SiteReviewMaxAggregateOutputType = {
   name: string | null
   subtitle: string | null
   description: string | null
+  profileImage: string | null
   createdAt: Date | null
 }
 
@@ -55,6 +57,7 @@ export type SiteReviewCountAggregateOutputType = {
   name: number
   subtitle: number
   description: number
+  profileImage: number
   createdAt: number
   _all: number
 }
@@ -73,6 +76,7 @@ export type SiteReviewMinAggregateInputType = {
   name?: true
   subtitle?: true
   description?: true
+  profileImage?: true
   createdAt?: true
 }
 
@@ -81,6 +85,7 @@ export type SiteReviewMaxAggregateInputType = {
   name?: true
   subtitle?: true
   description?: true
+  profileImage?: true
   createdAt?: true
 }
 
@@ -89,6 +94,7 @@ export type SiteReviewCountAggregateInputType = {
   name?: true
   subtitle?: true
   description?: true
+  profileImage?: true
   createdAt?: true
   _all?: true
 }
@@ -184,6 +190,7 @@ export type SiteReviewGroupByOutputType = {
   name: string
   subtitle: string
   description: string
+  profileImage: string
   createdAt: Date
   _count: SiteReviewCountAggregateOutputType | null
   _avg: SiteReviewAvgAggregateOutputType | null
@@ -215,6 +222,7 @@ export type SiteReviewWhereInput = {
   name?: Prisma.StringFilter<"SiteReview"> | string
   subtitle?: Prisma.StringFilter<"SiteReview"> | string
   description?: Prisma.StringFilter<"SiteReview"> | string
+  profileImage?: Prisma.StringFilter<"SiteReview"> | string
   createdAt?: Prisma.DateTimeFilter<"SiteReview"> | Date | string
 }
 
@@ -223,6 +231,7 @@ export type SiteReviewOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   subtitle?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  profileImage?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -234,6 +243,7 @@ export type SiteReviewWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"SiteReview"> | string
   subtitle?: Prisma.StringFilter<"SiteReview"> | string
   description?: Prisma.StringFilter<"SiteReview"> | string
+  profileImage?: Prisma.StringFilter<"SiteReview"> | string
   createdAt?: Prisma.DateTimeFilter<"SiteReview"> | Date | string
 }, "id">
 
@@ -242,6 +252,7 @@ export type SiteReviewOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   subtitle?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  profileImage?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.SiteReviewCountOrderByAggregateInput
   _avg?: Prisma.SiteReviewAvgOrderByAggregateInput
@@ -258,6 +269,7 @@ export type SiteReviewScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"SiteReview"> | string
   subtitle?: Prisma.StringWithAggregatesFilter<"SiteReview"> | string
   description?: Prisma.StringWithAggregatesFilter<"SiteReview"> | string
+  profileImage?: Prisma.StringWithAggregatesFilter<"SiteReview"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"SiteReview"> | Date | string
 }
 
@@ -265,6 +277,7 @@ export type SiteReviewCreateInput = {
   name: string
   subtitle: string
   description: string
+  profileImage: string
   createdAt?: Date | string
 }
 
@@ -273,6 +286,7 @@ export type SiteReviewUncheckedCreateInput = {
   name: string
   subtitle: string
   description: string
+  profileImage: string
   createdAt?: Date | string
 }
 
@@ -280,6 +294,7 @@ export type SiteReviewUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   subtitle?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  profileImage?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -288,6 +303,7 @@ export type SiteReviewUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   subtitle?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  profileImage?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -296,6 +312,7 @@ export type SiteReviewCreateManyInput = {
   name: string
   subtitle: string
   description: string
+  profileImage: string
   createdAt?: Date | string
 }
 
@@ -303,6 +320,7 @@ export type SiteReviewUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   subtitle?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  profileImage?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -311,6 +329,7 @@ export type SiteReviewUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   subtitle?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  profileImage?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -319,6 +338,7 @@ export type SiteReviewCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   subtitle?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  profileImage?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -331,6 +351,7 @@ export type SiteReviewMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   subtitle?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  profileImage?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -339,6 +360,7 @@ export type SiteReviewMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   subtitle?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  profileImage?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -369,6 +391,7 @@ export type SiteReviewSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   name?: boolean
   subtitle?: boolean
   description?: boolean
+  profileImage?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["siteReview"]>
 
@@ -377,6 +400,7 @@ export type SiteReviewSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   name?: boolean
   subtitle?: boolean
   description?: boolean
+  profileImage?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["siteReview"]>
 
@@ -385,6 +409,7 @@ export type SiteReviewSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   name?: boolean
   subtitle?: boolean
   description?: boolean
+  profileImage?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["siteReview"]>
 
@@ -393,10 +418,11 @@ export type SiteReviewSelectScalar = {
   name?: boolean
   subtitle?: boolean
   description?: boolean
+  profileImage?: boolean
   createdAt?: boolean
 }
 
-export type SiteReviewOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "subtitle" | "description" | "createdAt", ExtArgs["result"]["siteReview"]>
+export type SiteReviewOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "subtitle" | "description" | "profileImage" | "createdAt", ExtArgs["result"]["siteReview"]>
 
 export type $SiteReviewPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "SiteReview"
@@ -406,6 +432,7 @@ export type $SiteReviewPayload<ExtArgs extends runtime.Types.Extensions.Internal
     name: string
     subtitle: string
     description: string
+    profileImage: string
     createdAt: Date
   }, ExtArgs["result"]["siteReview"]>
   composites: {}
@@ -834,6 +861,7 @@ export interface SiteReviewFieldRefs {
   readonly name: Prisma.FieldRef<"SiteReview", 'String'>
   readonly subtitle: Prisma.FieldRef<"SiteReview", 'String'>
   readonly description: Prisma.FieldRef<"SiteReview", 'String'>
+  readonly profileImage: Prisma.FieldRef<"SiteReview", 'String'>
   readonly createdAt: Prisma.FieldRef<"SiteReview", 'DateTime'>
 }
     

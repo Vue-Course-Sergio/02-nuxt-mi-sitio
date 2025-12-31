@@ -14,9 +14,10 @@ datasource db {
 }
 
 model SiteReview {
-  id          Int      @id @default(autoincrement())
-  name        String
-  subtitle    String
-  description String
-  createdAt   DateTime @default(now())
+  id           Int      @id @default(autoincrement())
+  name         String
+  subtitle     String
+  description  String
+  profileImage String
+  createdAt    DateTime @default(now())
 }

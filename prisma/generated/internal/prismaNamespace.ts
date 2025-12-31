@@ -522,6 +522,7 @@ export const SiteReviewScalarFieldEnum = {
   name: 'name',
   subtitle: 'subtitle',
   description: 'description',
+  profileImage: 'profileImage',
   createdAt: 'createdAt'
 } as const
 
