@@ -22,3 +22,8 @@ export * from './enums.js';
  * 
  */
 export type SiteReview = Prisma.SiteReviewModel
+/**
+ * Model Product
+ * 
+ */
+export type Product = Prisma.ProductModel
