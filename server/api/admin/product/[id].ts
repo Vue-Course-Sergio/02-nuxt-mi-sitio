@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
       price: 0,
       images: [],
       tags: [],
-    } as Product;
+    } as unknown as Product;
   }
 
   const product = await prisma.product.findUnique({
