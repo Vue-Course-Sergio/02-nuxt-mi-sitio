@@ -8,6 +8,7 @@ export const useAuthentication = () => {
         body: { email, password },
       });
 
+      await fetch();
       navigateTo("/?message=Login successful");
 
       return true;
@@ -28,6 +29,7 @@ export const useAuthentication = () => {
         body: { fullname, email, password },
       });
 
+      await fetch();
       navigateTo("/?message=Registration successful");
 
       return true;
@@ -39,5 +41,15 @@ export const useAuthentication = () => {
     navigateTo("/?message=Logout successful");
   };
 
-  return { loggedIn, session, user, fetch, login, register, logout };
+  return {
+    loggedIn,
+    session,
+    user,
+    isLoggedIn: loggedIn,
+    isAdmin: computed(() => user.value?.roles.includes("admin")),
+    fetch,
+    login,
+    register,
+    logout,
+  };
 };
