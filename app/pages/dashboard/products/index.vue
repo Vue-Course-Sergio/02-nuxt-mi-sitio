@@ -11,6 +11,7 @@
         </p>
       </div>
       <u-button
+        to="/dashboard/product/new"
         icon="i-lucide-plus"
         label="Agregar Producto"
         color="primary"
@@ -35,6 +36,7 @@ import type { TableColumn } from "@nuxt/ui";
 const { products, currentPage, perPage, total } = await usePaginatedProducts();
 
 const UBadge = resolveComponent("UBadge");
+const NuxtLink = resolveComponent("NuxtLink");
 
 const columns: TableColumn<Product>[] = [
   {
@@ -57,6 +59,20 @@ const columns: TableColumn<Product>[] = [
   {
     accessorKey: "name",
     header: "Nombre",
+    cell: ({ row }) => {
+      const productName = row.getValue("name");
+      const productId = row.getValue("id");
+
+      return h(
+        NuxtLink,
+        {
+          to: `/dashboard/product/${productId}`,
+          class:
+            "text-primary-500 hover:text-primary-700 underline cursor-pointer",
+        },
+        () => productName
+      );
+    },
   },
   {
     accessorKey: "description",
