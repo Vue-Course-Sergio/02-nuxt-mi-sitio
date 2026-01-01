@@ -8,6 +8,15 @@ definePageMeta({
 
 const toast = useToast();
 
+const cookieRegisterEmail = useCookie<string | null>("login_email", {
+  sameSite: "strict",
+  maxAge: 60 * 60 * 24 * 30, // 30 days
+});
+
+const { register } = useAuthentication();
+
+const isPosting = ref(false);
+
 const fields: AuthFormField[] = [
   {
     name: "name",
@@ -42,8 +51,22 @@ const schema = z.object({
 
 type Schema = z.output<typeof schema>;
 
-function onSubmit(payload: FormSubmitEvent<Schema>) {
-  console.log("Submitted", payload);
+async function onSubmit(payload: FormSubmitEvent<Schema>) {
+  const { name, email, password } = payload.data;
+  isPosting.value = true;
+
+  const isSuccessfull = await register(name, email, password);
+
+  if (!isSuccessfull) {
+    toast.add({
+      title: "Registration failed",
+      description: "Could not create account with provided information",
+    });
+  } else {
+    cookieRegisterEmail.value = email;
+  }
+
+  isPosting.value = false;
 }
 </script>
 
@@ -57,6 +80,8 @@ function onSubmit(payload: FormSubmitEvent<Schema>) {
         icon="i-lucide-user"
         :fields="fields"
         @submit="onSubmit"
+        :loading="isPosting"
+        :disabled="isPosting"
         :ui="{
           leadingIcon: 'text-5xl',
         }"
