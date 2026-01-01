@@ -36,7 +36,7 @@ export default defineNuxtConfig({
   // Prerender Configuration
   nitro: {
     prerender: {
-      routes: ["/", "/about", "/contact", "/products"],
+      routes: ["/", "/about", "/contact", "/pricing", "/products"],
       ignore: ["/dashboard", "/dashboard/**"],
       crawlLinks: true,
     },
