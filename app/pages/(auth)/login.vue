@@ -8,6 +8,15 @@ definePageMeta({
 
 const toast = useToast();
 
+const cookieloginEmail = useCookie<string | null>("login_email", {
+  sameSite: "strict",
+  maxAge: 60 * 60 * 24 * 30, // 30 days
+});
+
+const { login } = useAuthentication();
+
+const isPosting = ref(false);
+
 const fields: AuthFormField[] = [
   {
     name: "email",
@@ -15,6 +24,7 @@ const fields: AuthFormField[] = [
     label: "Email",
     placeholder: "Enter your email",
     required: true,
+    defaultValue: cookieloginEmail.value || "",
   },
   {
     name: "password",
@@ -27,6 +37,7 @@ const fields: AuthFormField[] = [
     name: "remember",
     label: "Remember me",
     type: "checkbox",
+    defaultValue: Boolean(cookieloginEmail.value),
   },
 ];
 
@@ -52,12 +63,28 @@ const schema = z.object({
   password: z
     .string("Password is required")
     .min(8, "Must be at least 8 characters"),
+  remember: z.boolean().optional(),
 });
 
 type Schema = z.output<typeof schema>;
 
-function onSubmit(payload: FormSubmitEvent<Schema>) {
-  console.log("Submitted", payload);
+async function onSubmit(payload: FormSubmitEvent<Schema>) {
+  const { email, password, remember } = payload.data;
+
+  isPosting.value = true;
+
+  if (remember) cookieloginEmail.value = email;
+  else cookieloginEmail.value = null;
+
+  const isSuccessfull = await login(email, password);
+
+  if (!isSuccessfull) {
+    toast.add({
+      title: "Login failed",
+      description: "Invalid email or password",
+    });
+  }
+  isPosting.value = false;
 }
 </script>
 
@@ -72,6 +99,8 @@ function onSubmit(payload: FormSubmitEvent<Schema>) {
         :fields="fields"
         :providers="providers"
         @submit="onSubmit"
+        :loading="isPosting"
+        :disabled="isPosting"
         :ui="{
           leadingIcon: 'text-5xl',
         }"
