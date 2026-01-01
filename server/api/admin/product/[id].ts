@@ -1,6 +1,18 @@
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, "id");
 
+  if (id === "new") {
+    return {
+      id: 0,
+      slug: "",
+      name: "",
+      description: "",
+      price: 0,
+      images: [],
+      tags: [],
+    } as Product;
+  }
+
   const product = await prisma.product.findUnique({
     where: { id: Number(id) },
   });
