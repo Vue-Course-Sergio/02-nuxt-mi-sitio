@@ -1,75 +1,10 @@
-# Nuxt Minimal Starter
+# Mi sitio web con Nuxt
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## Dev
 
-## Setup
-
-Make sure to install dependencies:
-
-```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+1. Clona el repositorio
+2. Instala las dependencias con `npm install`
+3. Clonar el archivo `.env.template` a `.env` y configura las variables de entorno necesarias
+4. Ejecutar `npx prisma migrate dev` para aplicar las migraciones de la base de datos
+5. Ejecutar el seeder con `npx prisma db seed` para poblar la base de datos con datos iniciales
+6. Inicia el servidor de desarrollo con `npm run dev`
