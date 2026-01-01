@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import z from "zod";
+
 const route = useRoute();
 
 const rawId = route.params.id as string;
@@ -32,13 +34,46 @@ const subtitle = computed(() =>
     : `Actualice los detalles del producto seleccionado.`
 );
 
+const productSchema = z.object({
+  slug: z.string().nonempty("El slug es obligatorio."),
+  name: z.string().nonempty("El nombre es obligatorio."),
+  description: z.string().nonempty("La descripción es obligatoria."),
+  price: z.number().min(0, "El precio no puede ser negativo."),
+});
+
+const checkValidations = () => {
+  fieldErrors.value = {};
+
+  const result = productSchema.safeParse(newProduct.value);
+
+  if (!result.success) {
+    result.error.issues.forEach((issue) => {
+      const field = issue.path[0];
+
+      if (typeof field === "string") {
+        fieldErrors.value[field] = issue.message;
+      }
+    });
+
+    return false;
+  }
+
+  return true;
+};
+
 const handleSubmit = async () => {
-  console.log({ newProduct: newProduct.value });
+  const isFormValid = checkValidations();
+
+  if (!isFormValid) return;
+
+  newProduct.value!.tags = `${newProduct.value!.tags}`.split(",");
 };
 
 const handleCancel = () => {
   navigateTo("/dashboard/products");
 };
+
+watch(newProduct, () => checkValidations(), { deep: true });
 </script>
 
 <template>
