@@ -5,6 +5,8 @@ const router = useRouter();
 const route = useRoute();
 const toast = useToast();
 
+const filesToUpload = ref<File[]>();
+
 const messageQuery = route.query.message as string;
 
 if (messageQuery) {
@@ -97,6 +99,12 @@ const handleSubmit = async () => {
 
 const handleCancel = () => {
   navigateTo("/dashboard/products");
+};
+
+const handleFilesChanged = (event: Event) => {
+  const files = (event.target as HTMLInputElement).files;
+  if (!files) return;
+  filesToUpload.value = Array.from(files);
 };
 
 watch(newProduct, () => checkValidations(), { deep: true });
@@ -304,6 +312,7 @@ watch(newProduct, () => checkValidations(), { deep: true });
             </div>
             <u-input
               type="file"
+              @change="handleFilesChanged($event)"
               multiple
               id="product-images"
               rows="4"
