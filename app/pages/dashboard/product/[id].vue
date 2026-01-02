@@ -81,6 +81,7 @@ const handleSubmit = async () => {
 
   if (!isFormValid) return;
   if (!newProduct.value) return;
+  isSubmitting.value = true;
 
   newProduct.value!.tags = `${newProduct.value!.tags}`.split(",");
 
@@ -89,15 +90,20 @@ const handleSubmit = async () => {
     filesToUpload.value.length > 0 ? filesToUpload.value : undefined
   );
 
+  newProduct.value = product;
+
   if (isCreating.value) {
-    router.replace(`/dashboard/product/${product.id}`);
+    router.replace(`/dashboard/product/${product.id}?message=created`);
     return;
   }
+
+  filesToUpload.value = [];
 
   toast.add({
     title: "Producto actualizado",
     description: "Los cambios han sido guardados exitosamente.",
   });
+  isSubmitting.value = false;
 };
 
 const handleCancel = () => {
@@ -314,6 +320,7 @@ watch(newProduct, () => checkValidations(), { deep: true });
               </div>
             </div>
             <u-input
+              v-if="!isSubmitting"
               type="file"
               @change="handleFilesChanged($event)"
               multiple

@@ -21,7 +21,7 @@ export const useAdminProduct = async (id: string) => {
         method: "POST",
         body: data,
       });
-      return product;
+      return product as unknown as Product;
     }
 
     try {
@@ -30,7 +30,7 @@ export const useAdminProduct = async (id: string) => {
         body: formData,
       });
 
-      return product;
+      return product as unknown as Product;
     } catch (error) {
       throw createError({
         statusCode: 400,
