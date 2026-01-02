@@ -5,7 +5,7 @@ const router = useRouter();
 const route = useRoute();
 const toast = useToast();
 
-const filesToUpload = ref<File[]>();
+const filesToUpload = ref<File[]>([]);
 
 const messageQuery = route.query.message as string;
 
@@ -84,7 +84,10 @@ const handleSubmit = async () => {
 
   newProduct.value!.tags = `${newProduct.value!.tags}`.split(",");
 
-  const product = await createOrUpdate(newProduct.value, filesToUpload.value.length > 0 ? filesToUpload.value : undefined);
+  const product = await createOrUpdate(
+    newProduct.value,
+    filesToUpload.value.length > 0 ? filesToUpload.value : undefined
+  );
 
   if (isCreating.value) {
     router.replace(`/dashboard/product/${product.id}`);

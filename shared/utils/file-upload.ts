@@ -37,11 +37,11 @@ export const fileUpload = async (fileBuffer: Buffer<ArrayBufferLike>) => {
       }
     );
 
-    console.log({ result: uploadResult });
-
     if (!uploadResult.success) throw new Error("Upload failed");
 
-    const optimizedUrl = cloudinary.url(uuidFileName, {
+    const cloudinaryPublicId = uploadResult.result!.public_id;
+
+    const optimizedUrl = cloudinary.url(cloudinaryPublicId, {
       fetch_format: "auto",
       quality: "auto",
       width: 600,
