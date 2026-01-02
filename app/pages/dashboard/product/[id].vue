@@ -2,6 +2,7 @@
 import z from "zod";
 
 const route = useRoute();
+const toast = useToast();
 
 const rawId = route.params.id as string;
 
@@ -70,6 +71,13 @@ const handleSubmit = async () => {
   newProduct.value!.tags = `${newProduct.value!.tags}`.split(",");
 
   const product = await createOrUpdate(newProduct.value);
+
+  toast.add({
+    title: isCreating.value ? "Producto creado" : "Producto actualizado",
+    description: isCreating.value
+      ? "El producto ha sido creado exitosamente."
+      : "Los cambios han sido guardados exitosamente.",
+  });
 };
 
 const handleCancel = () => {
@@ -177,18 +185,7 @@ watch(newProduct, () => checkValidations(), { deep: true });
             ]"
             placeholder="Describe el producto con claridad..."
           />
-          <!-- <UInput
-              type="file"
-              multiple
-              id="product-images"
-              rows="4"
-              :class="[
-                'block w-full rounded-md bg-white px-3 py-2 shadow-sm focus:outline-none dark:bg-gray-900 dark:text-gray-100',
-                fieldErrors.imagesInput
-                  ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-                  : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700',
-              ]"
-            /> -->
+
           <p v-if="fieldErrors.description" class="text-sm text-red-600">
             {{ fieldErrors.description }}
           </p>
@@ -290,9 +287,10 @@ watch(newProduct, () => checkValidations(), { deep: true });
                 </button>
               </div>
             </div>
-            <textarea
+            <UInput
+              type="file"
+              multiple
               id="product-images"
-              v-model="newProduct.images"
               rows="4"
               :class="[
                 'block w-full rounded-md bg-white px-3 py-2 shadow-sm focus:outline-none dark:bg-gray-900 dark:text-gray-100',
@@ -300,7 +298,6 @@ watch(newProduct, () => checkValidations(), { deep: true });
                   ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
                   : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700',
               ]"
-              placeholder="https://ejemplo.com/imagen-1.jpg"
             />
             <p class="text-sm text-gray-500 dark:text-gray-400">
               Ingresa una URL por línea.
