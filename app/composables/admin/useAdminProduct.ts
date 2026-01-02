@@ -3,10 +3,13 @@ export const useAdminProduct = async (id: string) => {
     `/api/admin/product/${id}`
   );
 
-  const createOrUpdate = (data: Partial<Product>, files?: File[]) => {
+  const createOrUpdate = async (data: Partial<Product>, files?: File[]) => {
     const isCreating = data.id === 0;
+    const formData = new FormData();
 
     //? form-multipart y manejo de ficheros
+
+    formData.append("data", JSON.stringify(data));
 
     if (isCreating) {
       // TODO: Implement product creation logic
@@ -17,13 +20,19 @@ export const useAdminProduct = async (id: string) => {
       //   return algo;
     }
 
-    // TODO: Implement product update logic
-    //   const {} = await $fetch('', {
-    //     method: 'PATCH',
-    //     body: data
-    //   });
+    try {
+      const { product } = await $fetch(`/api/admin/product/${id}`, {
+        method: "PATCH",
+        body: formData,
+      });
 
-    //   return algo;
+      return product;
+    } catch (error) {
+      throw createError({
+        statusCode: 400,
+        message: error instanceof Error ? error.message : "Unknown error",
+      });
+    }
   };
 
   return {

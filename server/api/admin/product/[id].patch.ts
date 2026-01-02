@@ -29,7 +29,7 @@ export default defineEventHandler(async (event) => {
     }
   }
 
-  const body = bodySchema.safeParse(dataString);
+  const body = bodySchema.safeParse(JSON.parse(dataString));
 
   if (!body.success) {
     throw createError({
@@ -39,5 +39,25 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  return {};
+  const product = await prisma.product.findUnique({
+    where: { id: Number(id) },
+  });
+
+  if (!product) {
+    throw createError({
+      statusCode: 404,
+      statusMessage: "Product not found",
+    });
+  }
+
+  const updatedProduct = await prisma.product.update({
+    where: { id: Number(id) },
+    data: body.data,
+  });
+
+  return {
+    message: "Product updated successfully",
+    product: updatedProduct,
+    files: [],
+  };
 });

@@ -65,8 +65,11 @@ const handleSubmit = async () => {
   const isFormValid = checkValidations();
 
   if (!isFormValid) return;
+  if (!newProduct.value) return;
 
   newProduct.value!.tags = `${newProduct.value!.tags}`.split(",");
+
+  const product = await createOrUpdate(newProduct.value);
 };
 
 const handleCancel = () => {
