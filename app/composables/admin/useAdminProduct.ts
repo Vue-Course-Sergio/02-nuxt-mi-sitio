@@ -12,12 +12,11 @@ export const useAdminProduct = async (id: string) => {
     formData.append("data", JSON.stringify(data));
 
     if (isCreating) {
-      // TODO: Implement product creation logic
-      //   const {} = await $fetch('', {
-      //     method: 'POST',
-      //     body: data
-      //   });
-      //   return algo;
+      const { product } = await $fetch("/api/admin/product", {
+        method: "POST",
+        body: data,
+      });
+      return product;
     }
 
     try {

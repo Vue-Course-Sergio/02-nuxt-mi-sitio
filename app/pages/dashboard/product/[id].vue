@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import z from "zod";
 
+const router = useRouter();
 const route = useRoute();
 const toast = useToast();
 
@@ -72,11 +73,14 @@ const handleSubmit = async () => {
 
   const product = await createOrUpdate(newProduct.value);
 
+  if (isCreating.value) {
+    router.replace(`/dashboard/product/${product.id}`);
+    return;
+  }
+
   toast.add({
-    title: isCreating.value ? "Producto creado" : "Producto actualizado",
-    description: isCreating.value
-      ? "El producto ha sido creado exitosamente."
-      : "Los cambios han sido guardados exitosamente.",
+    title: "Producto actualizado",
+    description: "Los cambios han sido guardados exitosamente.",
   });
 };
 
@@ -248,7 +252,7 @@ watch(newProduct, () => checkValidations(), { deep: true });
             </div>
           </div>
 
-          <div class="space-y-3">
+          <div class="space-y-3" v-if="!isCreating">
             <label
               class="text-sm font-medium text-gray-700 dark:text-gray-200"
               for="product-images"
@@ -287,7 +291,7 @@ watch(newProduct, () => checkValidations(), { deep: true });
                 </button>
               </div>
             </div>
-            <UInput
+            <u-input
               type="file"
               multiple
               id="product-images"
@@ -309,7 +313,7 @@ watch(newProduct, () => checkValidations(), { deep: true });
         </div>
 
         <div class="flex flex-wrap items-center gap-3">
-          <UButton
+          <u-button
             type="submit"
             color="primary"
             variant="solid"
@@ -317,8 +321,8 @@ watch(newProduct, () => checkValidations(), { deep: true });
             icon="i-lucide-save"
           >
             {{ isSubmitting ? "Guardando..." : "Guardar producto" }}
-          </UButton>
-          <UButton
+          </u-button>
+          <u-button
             type="button"
             color="neutral"
             variant="outline"
@@ -326,7 +330,7 @@ watch(newProduct, () => checkValidations(), { deep: true });
             @click="handleCancel"
           >
             Cancelar
-          </UButton>
+          </u-button>
         </div>
       </form>
 
