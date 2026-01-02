@@ -5,6 +5,17 @@ const router = useRouter();
 const route = useRoute();
 const toast = useToast();
 
+const messageQuery = route.query.message as string;
+
+if (messageQuery) {
+  toast.add({
+    title: "Producto creado",
+    description: "El producto ha sido creado exitosamente.",
+  });
+
+  router.replace({ query: {} });
+}
+
 const rawId = route.params.id as string;
 
 const {
