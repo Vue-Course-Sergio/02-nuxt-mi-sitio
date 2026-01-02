@@ -10,6 +10,14 @@ export const useAdminProduct = async (id: string) => {
     //? form-multipart y manejo de ficheros
 
     formData.append("data", JSON.stringify(data));
+    if (files) {
+
+      files.forEach(file => {
+        formData.append('files', file)
+      });
+
+    }
+
 
     if (isCreating) {
       const { product } = await $fetch("/api/admin/product", {

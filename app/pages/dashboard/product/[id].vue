@@ -84,7 +84,7 @@ const handleSubmit = async () => {
 
   newProduct.value!.tags = `${newProduct.value!.tags}`.split(",");
 
-  const product = await createOrUpdate(newProduct.value);
+  const product = await createOrUpdate(newProduct.value, filesToUpload.value.length > 0 ? filesToUpload.value : undefined);
 
   if (isCreating.value) {
     router.replace(`/dashboard/product/${product.id}`);
