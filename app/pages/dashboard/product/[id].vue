@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const {
   pageTitle,
+  filesToUploadPreviews,
   subtitle,
   pending,
   isCreating,
@@ -12,6 +13,7 @@ const {
   handleSubmit,
   handleFilesChanged,
   handleCancel,
+  removeFilePreview,
 } = await useProductForm();
 </script>
 
@@ -215,6 +217,30 @@ const {
                 </button>
               </div>
             </div>
+
+            <ClientOnly>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div
+                  v-for="(image, index) in filesToUploadPreviews"
+                  :key="image"
+                >
+                  <div class="overflow-hidden rounded-lg relative">
+                    <img
+                      :src="image"
+                      :alt="`Previsualización ${index + 1}`"
+                      class="h-20 w-full object-cover"
+                    />
+                    <UButton
+                      color="error"
+                      icon="i-lucide-x"
+                      class="absolute top-2 right-2"
+                      @click="removeFilePreview(index)"
+                    />
+                  </div>
+                </div>
+              </div>
+            </ClientOnly>
+
             <u-input
               v-if="!isSubmitting"
               type="file"

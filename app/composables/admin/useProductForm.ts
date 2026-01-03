@@ -13,6 +13,7 @@ export async function useProductForm() {
   });
 
   const filesToUpload = ref<File[]>([]);
+  const filesToUploadPreviews = ref<string[]>([]);
   const messageQuery = route.query.message as string;
   const rawId = route.params.id as string;
 
@@ -130,6 +131,18 @@ export async function useProductForm() {
     const files = (event.target as HTMLInputElement).files;
     if (!files) return;
     filesToUpload.value = Array.from(files);
+
+    filesToUploadPreviews.value = filesToUpload.value.map((file) =>
+      URL.createObjectURL(file)
+    );
+  };
+
+  const removeFilePreview = (index: number) => {
+    filesToUploadPreviews.value = filesToUploadPreviews.value.filter(
+      (file, i) => i !== index
+    );
+
+    filesToUpload.value = filesToUpload.value.filter((file, i) => i !== index);
   };
 
   watch(
@@ -143,7 +156,7 @@ export async function useProductForm() {
   );
 
   return {
-    filesToUpload,
+    filesToUploadPreviews,
     product,
     error,
     pending,
@@ -157,5 +170,6 @@ export async function useProductForm() {
     handleSubmit,
     handleCancel,
     handleFilesChanged,
+    removeFilePreview,
   };
 }
