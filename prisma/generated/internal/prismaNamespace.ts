@@ -386,7 +386,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   SiteReview: 'SiteReview',
   Product: 'Product',
-  User: 'User'
+  User: 'User',
+  ProductReview: 'ProductReview'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -402,7 +403,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "siteReview" | "product" | "user"
+    modelProps: "siteReview" | "product" | "user" | "productReview"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -628,6 +629,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ProductReview: {
+      payload: Prisma.$ProductReviewPayload<ExtArgs>
+      fields: Prisma.ProductReviewFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ProductReviewFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductReviewPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ProductReviewFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductReviewPayload>
+        }
+        findFirst: {
+          args: Prisma.ProductReviewFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductReviewPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ProductReviewFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductReviewPayload>
+        }
+        findMany: {
+          args: Prisma.ProductReviewFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductReviewPayload>[]
+        }
+        create: {
+          args: Prisma.ProductReviewCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductReviewPayload>
+        }
+        createMany: {
+          args: Prisma.ProductReviewCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ProductReviewCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductReviewPayload>[]
+        }
+        delete: {
+          args: Prisma.ProductReviewDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductReviewPayload>
+        }
+        update: {
+          args: Prisma.ProductReviewUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductReviewPayload>
+        }
+        deleteMany: {
+          args: Prisma.ProductReviewDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ProductReviewUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ProductReviewUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductReviewPayload>[]
+        }
+        upsert: {
+          args: Prisma.ProductReviewUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductReviewPayload>
+        }
+        aggregate: {
+          args: Prisma.ProductReviewAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateProductReview>
+        }
+        groupBy: {
+          args: Prisma.ProductReviewGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProductReviewGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ProductReviewCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProductReviewCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -705,6 +780,20 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const ProductReviewScalarFieldEnum = {
+  id: 'id',
+  rating: 'rating',
+  review: 'review',
+  username: 'username',
+  userTitle: 'userTitle',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  productId: 'productId'
+} as const
+
+export type ProductReviewScalarFieldEnum = (typeof ProductReviewScalarFieldEnum)[keyof typeof ProductReviewScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -882,6 +971,7 @@ export type GlobalOmitConfig = {
   siteReview?: Prisma.SiteReviewOmit
   product?: Prisma.ProductOmit
   user?: Prisma.UserOmit
+  productReview?: Prisma.ProductReviewOmit
 }
 
 /* Types for Logging */
