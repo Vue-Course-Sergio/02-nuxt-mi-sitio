@@ -54,8 +54,5 @@ export default defineEventHandler(async (event) => {
     },
   });
 
-  return {
-    message: "Review posted successfully",
-    review,
-  };
+  return review;
 });
