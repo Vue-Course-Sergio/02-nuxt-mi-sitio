@@ -12,15 +12,15 @@ const emit = defineEmits<{
   (event: "review-posted", review: ProductReview): void;
 }>();
 
-  const toast = useToast();
+const toast = useToast();
 
 const reviewText = ref("");
 const userTitle = ref("");
 const rating = ref(0);
 const isOpen = ref(false);
 
-const submitReview = () => {
-   try {
+const submitReview = async () => {
+  try {
     const review = await $fetch<ProductReview>(
       `/api/product/${props.slug}/reviews`,
       {
@@ -35,16 +35,16 @@ const submitReview = () => {
 
     emit("review-posted", review);
 
-     toast.add({
-       title: 'Review sent',
-       description: 'Your review has been sent successfully'
-     });
+    toast.add({
+      title: "Review sent",
+      description: "Your review has been sent successfully",
+    });
   } catch (error) {
-     toast.add({
-       title: 'Error',
-       description: error instanceof Error ? error.message : 'Unknown error'
-       color: 'error'
-     });
+    toast.add({
+      title: "Error",
+      description: error instanceof Error ? error.message : "Unknown error",
+      color: "error",
+    });
   }
 
   isOpen.value = false;
