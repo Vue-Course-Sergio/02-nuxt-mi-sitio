@@ -2,7 +2,7 @@
 import type { User } from "#auth-utils";
 import type { ProductReview } from "~~/prisma/generated/client";
 
-defineProps<{
+const props = defineProps<{
   buttonLabel: string;
   slug: string;
   user: User | null;
@@ -18,7 +18,21 @@ const rating = ref(0);
 const isOpen = ref(false);
 
 const submitReview = () => {
-  console.log("submitReview");
+   try {
+    const review = await $fetch<ProductReview>(
+      `/api/product/${props.slug}/reviews`,
+      {
+        method: "POST",
+        body: {
+          rating: rating.value,
+          userTitle: userTitle.value,
+          review: reviewText.value,
+        },
+      }
+    );
+
+    emit("review-posted", review);
+  } catch (error) {}
 
   isOpen.value = false;
 };
