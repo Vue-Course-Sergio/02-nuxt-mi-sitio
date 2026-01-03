@@ -12,6 +12,8 @@ const emit = defineEmits<{
   (event: "review-posted", review: ProductReview): void;
 }>();
 
+  const toast = useToast();
+
 const reviewText = ref("");
 const userTitle = ref("");
 const rating = ref(0);
@@ -32,7 +34,18 @@ const submitReview = () => {
     );
 
     emit("review-posted", review);
-  } catch (error) {}
+
+     toast.add({
+       title: 'Review sent',
+       description: 'Your review has been sent successfully'
+     });
+  } catch (error) {
+     toast.add({
+       title: 'Error',
+       description: error instanceof Error ? error.message : 'Unknown error'
+       color: 'error'
+     });
+  }
 
   isOpen.value = false;
 };
