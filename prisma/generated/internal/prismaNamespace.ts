@@ -790,7 +790,8 @@ export const ProductReviewScalarFieldEnum = {
   userTitle: 'userTitle',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  productId: 'productId'
+  productId: 'productId',
+  userId: 'userId'
 } as const
 
 export type ProductReviewScalarFieldEnum = (typeof ProductReviewScalarFieldEnum)[keyof typeof ProductReviewScalarFieldEnum]

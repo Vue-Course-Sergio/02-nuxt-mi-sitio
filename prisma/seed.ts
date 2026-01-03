@@ -35,6 +35,7 @@ async function seed() {
   });
 
   const productsCreated = await prisma.product.findMany();
+  const usersCreated = await prisma.user.findMany();
 
   const productsReviewsCreated = productReviews.map((review) => ({
     rating: review.rating,
@@ -42,6 +43,7 @@ async function seed() {
     userTitle: review.userTitle,
     username: review.name,
     productId: productsCreated[Math.floor(Math.random() * products.length)].id,
+    userId: usersCreated[Math.floor(Math.random() * users.length)].id,
   }));
 
   await prisma.productReview.createMany({
