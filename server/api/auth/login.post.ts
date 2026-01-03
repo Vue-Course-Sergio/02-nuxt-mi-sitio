@@ -26,8 +26,15 @@ export default defineEventHandler(async (event) => {
 
   const isValidPassword = bcrypt.compareSync(password, user.password);
 
+  if (!isValidPassword) {
+    throw createError({
+      statusCode: 401,
+      message: "Invalid email or password",
+    });
+  }
+
   const userSession = {
-    uid: user.id,
+    id: user.id,
     name: user.name,
     email: user.email,
     roles: user.roles,
@@ -35,14 +42,8 @@ export default defineEventHandler(async (event) => {
 
   await setUserSession(event, {
     user: userSession,
+    loggedInAt: new Date(),
   });
-
-  if (!isValidPassword) {
-    throw createError({
-      statusCode: 401,
-      message: "Invalid email or password",
-    });
-  }
 
   return {
     message: "Login successful",

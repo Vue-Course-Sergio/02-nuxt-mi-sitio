@@ -2,7 +2,7 @@
 declare module "#auth-utils" {
   // Define the structure of your user object
   interface User {
-    id: string;
+    id: number;
     email: string;
     name: string; // Optional field
     roles: string[]; // Example of a specific role type

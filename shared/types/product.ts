@@ -9,3 +9,10 @@ export interface Product {
   createdAt: Date;
   updatedAt: Date;
 }
+
+// Tipo para productos que vienen del servidor (fechas serializadas como strings)
+export interface SerializedProduct
+  extends Omit<Product, "createdAt" | "updatedAt"> {
+  createdAt: string;
+  updatedAt: string;
+}

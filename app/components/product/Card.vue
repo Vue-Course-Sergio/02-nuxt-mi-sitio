@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineProps<{
-  product: Product;
+  product: SerializedProduct;
 }>();
 </script>
 
