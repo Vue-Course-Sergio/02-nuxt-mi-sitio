@@ -34,15 +34,21 @@ export async function useProductForm() {
 
   if (error.value) navigateTo("/404");
 
+  const isCreating = computed(() => rawId === "new");
+
   const selectedImageIndex = ref(0);
   const isSubmitting = ref(false);
   const fieldErrors = ref<Record<string, string>>({});
 
-  const newProduct = ref<Product | null>({
-    ...product.value,
-  } as unknown as Product);
-
-  const isCreating = computed(() => rawId === "new");
+  const newProduct = ref<Product | null>(
+    product.value
+      ? {
+          ...product.value,
+          createdAt: new Date(product.value.createdAt),
+          updatedAt: new Date(product.value.updatedAt),
+        }
+      : null
+  );
 
   const pageTitle = computed(() =>
     isCreating.value
@@ -57,6 +63,8 @@ export async function useProductForm() {
   );
 
   const checkValidations = () => {
+    if (!newProduct.value) return false;
+
     fieldErrors.value = {};
 
     const result = productSchema.safeParse(newProduct.value);
@@ -83,7 +91,15 @@ export async function useProductForm() {
     if (!newProduct.value) return;
     isSubmitting.value = true;
 
-    newProduct.value!.tags = `${newProduct.value!.tags}`.split(",");
+    // Convertir tags de string a array si es necesario
+    if (typeof (newProduct.value as any).tags === "string") {
+      (newProduct.value as any).tags = (
+        (newProduct.value as any).tags as string
+      )
+        .split(",")
+        .map((tag: string) => tag.trim())
+        .filter((tag: string) => tag.length > 0);
+    }
 
     const product = await createOrUpdate(
       newProduct.value,
@@ -116,7 +132,15 @@ export async function useProductForm() {
     filesToUpload.value = Array.from(files);
   };
 
-  watch(newProduct, () => checkValidations(), { deep: true });
+  watch(
+    newProduct,
+    () => {
+      if (newProduct.value) {
+        checkValidations();
+      }
+    },
+    { deep: true }
+  );
 
   return {
     filesToUpload,
