@@ -1,9 +1,18 @@
 <script setup lang="ts">
+import type { ProductReview, User } from "~~/prisma/generated/client";
+
 defineProps<{
   buttonLabel: string;
+  slug: string;
+  user: Partial<User>;
+}>();
+
+const emit = defineEmits<{
+  (event: "review-posted", review: ProductReview): void;
 }>();
 
 const reviewText = ref("");
+const userTitle = ref("");
 const rating = ref(0);
 const isOpen = ref(false);
 
@@ -12,12 +21,20 @@ const submitReview = () => {
 
   isOpen.value = false;
 };
+
+const handleCloseModal = (event: boolean) => {
+  isOpen.value = event;
+  reviewText.value = "";
+  userTitle.value = "";
+  rating.value = 0;
+};
 </script>
 
 <template>
   <u-modal
     :open="isOpen"
-    @close="isOpen = false"
+    @close="handleCloseModal"
+    @update:open="handleCloseModal"
     title="Añadir reseña"
     description="Deja tu reseña sobre el producto."
   >
@@ -49,6 +66,18 @@ const submitReview = () => {
                 @click="rating = star"
               />
             </div>
+          </div>
+
+          <div class="col-span-1">
+            <u-input :model-value="user.name" class="w-full" disabled />
+          </div>
+
+          <div class="col-span-1">
+            <u-input
+              v-model="userTitle"
+              placeholder="Título del usuario"
+              class="w-full"
+            />
           </div>
 
           <div class="col-span-1">

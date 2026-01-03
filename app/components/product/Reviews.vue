@@ -3,7 +3,7 @@ const props = defineProps<{
   slug: string;
 }>();
 
-const { isLoggedIn } = useAuthentication();
+const { user, isLoggedIn } = useAuthentication();
 
 const { data, status, refresh } = useFetch(
   `/api/product/${props.slug}/reviews`,
@@ -15,6 +15,10 @@ const { data, status, refresh } = useFetch(
 
 const productReviews = computed(() => data.value?.reviews ?? []);
 const hasUserReviewed = computed(() => data.value?.hasUserReviewed ?? false);
+
+const handleReviewPosted = () => {
+  refresh();
+};
 </script>
 
 <template>
@@ -38,6 +42,9 @@ const hasUserReviewed = computed(() => data.value?.hasUserReviewed ?? false);
       /> -->
       <client-only>
         <modal-review
+          :slug="slug"
+          :user="user!"
+          @review-posted="handleReviewPosted"
           v-if="isLoggedIn && !hasUserReviewed"
           button-label="Añadir reseña"
         />
