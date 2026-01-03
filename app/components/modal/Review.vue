@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import type { ProductReview, User } from "~~/prisma/generated/client";
+import type { User } from "#auth-utils";
+import type { ProductReview } from "~~/prisma/generated/client";
 
 defineProps<{
   buttonLabel: string;
   slug: string;
-  user: Partial<User>;
+  user: User | null;
 }>();
 
 const emit = defineEmits<{
@@ -69,7 +70,7 @@ const handleCloseModal = (event: boolean) => {
           </div>
 
           <div class="col-span-1">
-            <u-input :model-value="user.name" class="w-full" disabled />
+            <u-input :model-value="user?.name" class="w-full" disabled />
           </div>
 
           <div class="col-span-1">

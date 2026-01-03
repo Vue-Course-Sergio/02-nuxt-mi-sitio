@@ -14,7 +14,7 @@ const { data: productSuggestions, status } = useFetch(
 </script>
 
 <template>
-  <div>
+  <client-only>
     <div
       v-if="status === 'pending'"
       class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
@@ -29,5 +29,5 @@ const { data: productSuggestions, status } = useFetch(
       class="fade-in"
       :products="productSuggestions ?? []"
     />
-  </div>
+  </client-only>
 </template>
